@@ -5,21 +5,22 @@ module.exports = (sequelize, DataTypes) => {
     {
       name: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true,
       },
       email: {
         type: DataTypes.STRING,
-        unique: true,
-        allowNull: false
+        unique: false,
+        allowNull: false,
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false
-      }
+        allowNull: false,
+      },
     },
     {}
   );
-  user.associate = function(models) {
+  user.associate = function (models) {
     // associations can be defined here
   };
   return user;
