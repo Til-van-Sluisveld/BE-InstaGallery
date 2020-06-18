@@ -16,6 +16,8 @@ module.exports = (sequelize, DataTypes) => {
   );
   order.associate = function (models) {
     // associations can be defined here
+    order.belongsTo(model.photo);
+    order.belongsTo(model.invoice);
   };
   return order;
 };

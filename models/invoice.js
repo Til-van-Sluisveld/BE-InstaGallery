@@ -32,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
   );
   invoice.associate = function (models) {
     // associations can be defined here
+    invoice.hasMany(model.order);
   };
   return invoice;
 };
