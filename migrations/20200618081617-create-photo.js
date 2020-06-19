@@ -8,17 +8,17 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      title: {
+      description: {
+        allowNull: true,
+        type: Sequelize.TEXT,
+      },
+      info: {
         allowNull: false,
         type: Sequelize.STRING,
-      },
-      price: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
       },
       src: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
       },
       createdAt: {
         allowNull: false,

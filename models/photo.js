@@ -3,16 +3,16 @@ module.exports = (sequelize, DataTypes) => {
   const photo = sequelize.define(
     "photo",
     {
-      title: {
-        type: DataTypes.STRING,
-        allowNull: false,
+      description: {
+        type: DataTypes.TEXT,
+        allowNull: true,
       },
-      price: {
-        type: DataTypes.INTEGER,
+      info: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
       src: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
       },
     },
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
   photo.associate = function (models) {
     // associations can be defined here
     photo.belongsTo(models.user);
-    photo.hasMany(model.order);
+    photo.hasMany(models.order);
   };
   return photo;
 };
