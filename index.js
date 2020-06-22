@@ -122,6 +122,10 @@ const galleryRouter = require("./routers/galleries");
 
 app.use("/galleries", galleryRouter);
 
+const photoRouter = require("./routers/photos");
+
+app.use("/photos", photoRouter);
+
 // GET endpoint for testing purposes, can be removed
 app.get("/", (req, res) => {
   res.send("Hi from express");
