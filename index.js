@@ -118,6 +118,9 @@ if (process.env.DELAY) {
  *
  * Define your routes here (now that middlewares are configured)
  */
+const galleryRouter = require("./routers/galleries");
+
+app.use("/galleries", galleryRouter);
 
 // GET endpoint for testing purposes, can be removed
 app.get("/", (req, res) => {
