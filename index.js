@@ -126,6 +126,10 @@ const photoRouter = require("./routers/photos");
 
 app.use("/photos", photoRouter);
 
+const invoiceRouter = require("./routers/invoice");
+
+app.use("/invoice", invoiceRouter);
+
 // GET endpoint for testing purposes, can be removed
 app.get("/", (req, res) => {
   res.send("Hi from express");

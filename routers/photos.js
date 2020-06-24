@@ -17,7 +17,7 @@ router.post("/new", async (req, res, next) => {
   const { description, info, src, userId } = req.body;
   try {
     const newPhoto = await Photo.create({ description, info, src, userId });
-    res.send(newPhoto);
+    res.send(newPhoto.data);
   } catch (e) {
     next(e);
   }
