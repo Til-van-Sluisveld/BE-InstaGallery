@@ -13,7 +13,6 @@ router.get("/:id", async (req, res, next) => {
 });
 
 router.post("/new", async (req, res, next) => {
-  //   console.log("request body:", req.body);
   const { description, info, src, userId } = req.body;
   try {
     const newPhoto = await Photo.create({ description, info, src, userId });
