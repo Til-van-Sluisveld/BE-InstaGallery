@@ -19,24 +19,9 @@ const transport = nodemailer.createTransport({
 });
 
 router.post("/", async (req, res, next) => {
-  const {
-    buyer_name,
-    buyer_email,
-    buyer_country,
-    buyer_city,
-    buyer_address,
-    buyer_zipcode,
-    cart,
-  } = req.body;
+  const { buyerInfo, cart } = req.body;
   try {
-    const newInvoice = await Invoice.create({
-      buyer_name,
-      buyer_email,
-      buyer_country,
-      buyer_city,
-      buyer_address,
-      buyer_zipcode,
-    });
+    const newInvoice = await Invoice.create({ ...buyerInfo });
     // console.log("newInvoice:", newInvoice.dataValues.id);
     const ordersToCreate = cart.map((photo) => ({
       quantity: photo.quantity,
@@ -81,11 +66,11 @@ router.post("/", async (req, res, next) => {
         text: `Hey there, someone ordered something from you`,
         html: `<b>Hey there! </b><br> Someone Ordered something from you:<br />
       <br>Delivery info is:</br>
-      <br> ${buyer_name}</br>
-      <br> ${buyer_address}</br>
-      <br> ${buyer_zipcode}</br>
-      <br> ${buyer_city}</br>
-      <br> ${buyer_country}</br>
+      <br> ${buyerInfo.buyer_name}</br>
+      <br> ${buyerInfo.buyer_address}</br>
+      <br> ${buyerInfo.buyer_zipcode}</br>
+      <br> ${buyerInfo.buyer_city}</br>
+      <br> ${buyerInfo.buyer_country}</br>
       
     <table>
     <thead>
@@ -122,7 +107,7 @@ router.post("/", async (req, res, next) => {
 
     const buyer_mail = {
       from: '"Example Team" <from@example.com>',
-      to: buyer_email,
+      to: buyerInfo.buyer_email,
       subject: "Your InstaGallery Order",
       text: "Hey there, we have just received your order",
       html: `<b>Hey there! </b><br>  we have just received your order<br />
