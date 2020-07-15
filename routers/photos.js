@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const authMiddleware = require("../auth/middleware");
 const Photo = require("../models").photo;
 
 const router = new Router();
@@ -12,10 +13,9 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.post("/new", async (req, res, next) => {
-  const { description, info, src, userId } = req.body;
+router.post("/new", authMiddleware, async (req, res, next) => {
   try {
-    const newPhoto = await Photo.create({ description, info, src, userId });
+    const newPhoto = await Photo.bulkCreate(req.body.toImport);
     res.send(newPhoto);
   } catch (e) {
     next(e);
