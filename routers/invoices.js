@@ -37,7 +37,7 @@ router.post("/", async (req, res, next) => {
       buyer_address,
       buyer_zipcode,
     });
-    console.log("newInvoice:", newInvoice.dataValues.id);
+    // console.log("newInvoice:", newInvoice.dataValues.id);
     const ordersToCreate = cart.map((photo) => ({
       quantity: photo.quantity,
       price: 25,
@@ -45,7 +45,7 @@ router.post("/", async (req, res, next) => {
       invoiceId: newInvoice.dataValues.id,
     }));
     const newOrders = await Order.bulkCreate(ordersToCreate);
-    console.log("newOrders:", newOrders);
+    //console.log("newOrders:", newOrders);
     //res.send("Invoice+Orders created ");
 
     const photoIdArray = newOrders.map((order) => order.dataValues.photoId);
@@ -59,23 +59,18 @@ router.post("/", async (req, res, next) => {
     //console.log("photos found:", photos);
     const photoSrcArray = photos.map((photo) => photo.dataValues.src);
     //console.log("array of photo src:", photoSrcArray);
-    const photographerIdArray = photos.map((photo) => photo.dataValues.userId);
-    //console.log("photographers", photographerIdArray);
     function onlyUnique(value, index, self) {
       return self.indexOf(value) === index;
     }
-    const uniquePhotographers = photographerIdArray.filter(onlyUnique);
-    //console.log(uniquePhotographers);
-    //res.send("done");
-
-    const findingPhotographer = uniquePhotographers.map(
-      async (photographer) => {
+    const photographersToFind = photos
+      .map((photo) => photo.dataValues.userId)
+      .filter(onlyUnique)
+      .map(async (photographer) => {
         const photographerFound = await User.findByPk(photographer);
         return photographerFound;
-      }
-    );
+      });
 
-    const photographers = await Promise.all(findingPhotographer);
+    const photographers = await Promise.all(photographersToFind);
     // console.log("photographer found:", photographers[1].dataValues.email);
 
     const photographer_mails = photographers.map((photographer) => {
