@@ -5,6 +5,7 @@ const Photo = require("../models").photo;
 const User = require("../models").user;
 
 const nodemailer = require("nodemailer");
+const { nodemailerPass } = require("../config/secrets");
 
 const router = new Router();
 
@@ -13,7 +14,7 @@ const transport = nodemailer.createTransport({
   port: 2525,
   auth: {
     user: "38fef23bdcd720",
-    pass: "a82a64cbf13081",
+    pass: nodemailerPass,
   },
 });
 
