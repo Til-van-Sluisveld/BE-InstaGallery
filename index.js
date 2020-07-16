@@ -5,6 +5,11 @@ const { PORT } = require("./config/constants");
 const authRouter = require("./routers/auth");
 const authMiddleWare = require("./auth/middleware");
 
+const photoRouter = require("./routers/photos");
+const orderRouter = require("./routers/orders");
+const invoiceRouter = require("./routers/invoices");
+const galleryRouter = require("./routers/galleries");
+
 const app = express();
 
 /**
@@ -118,6 +123,11 @@ if (process.env.DELAY) {
  *
  * Define your routes here (now that middlewares are configured)
  */
+
+app.use("/galleries", galleryRouter);
+app.use("/photos", photoRouter);
+app.use("/invoices", invoiceRouter);
+app.use("/orders", orderRouter);
 
 // GET endpoint for testing purposes, can be removed
 app.get("/", (req, res) => {
