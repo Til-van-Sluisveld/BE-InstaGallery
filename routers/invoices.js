@@ -5,7 +5,7 @@ const Photo = require("../models").photo;
 const User = require("../models").user;
 
 const nodemailer = require("nodemailer");
-const { nodemailerPass } = require("../config/secrets");
+const { nodemailerPass, nodemailerUser } = require("../config/secrets");
 const { renderSellersMails, renderBuyersMail } = require("../emails/invoicing");
 
 const router = new Router();
@@ -14,7 +14,7 @@ const transport = nodemailer.createTransport({
   host: "smtp.mailtrap.io",
   port: 2525,
   auth: {
-    user: "38fef23bdcd720",
+    user: nodemailerUser,
     pass: nodemailerPass,
   },
 });
