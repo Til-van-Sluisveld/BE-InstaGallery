@@ -22,4 +22,8 @@ router.post("/new", authMiddleware, async (req, res, next) => {
   }
 });
 
+router.delete("/delete/:id", async (req, res, next) => {
+  console.log("delete photo with id:", req.params.id);
+});
+
 module.exports = router;
